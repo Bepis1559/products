@@ -1,0 +1,63 @@
+# Ignore the vendor directory
+/vendor
+
+# Ignore the node_modules directory (if using npm/yarn for frontend)
+/node_modules
+
+# Ignore the storage directory
+/storage
+
+# Ignore the Homestead.yaml file (if using Laravel Homestead)
+Homestead.yaml
+
+# Ignore environment configuration files
+.env
+.phpunit.result.cache
+
+# Ignore logs and compiled Blade templates
+*.log
+*.log.*
+*.diff
+*.map
+*.tsbuildinfo
+*.db
+*.sqlite
+
+# Ignore generated application key
+.phpstorm.meta.php
+/.idea
+
+# Ignore public/hot and public/storage directories
+/public/hot
+/public/storage
+
+# Ignore .DS_Store files on macOS
+.DS_Store
+
+# Ignore Thumbs.db on Windows
+Thumbs.db
+
+# Ignore user-specific files
+.idea
+*.iml
+*.suo
+*.ntvs*
+*.nupkg
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore Homestead local setup
+Homestead.json
+Homestead.yaml
+Vagrantfile
+/vendor/
+/public/hot
+/public/storage
+/storage/*.key
+/.vagrant
+
+# Ignore configuration files that may contain sensitive information
+/config/*.php
+/config/*.yml
