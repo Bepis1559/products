@@ -16,9 +16,13 @@
                 <select name="category" id="category" class="form-control">
                     <option value="">All Categories</option>
                     @foreach ($categories as $category)
-                        <option value="{{ $category->name }}">{{ $category->name }}</option>
+                        <option value="{{ $category->name }}" {{ $categoryName == $category->name ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
                     @endforeach
                 </select>
+
+
             </div>
             <button type="submit" class="btn btn-primary">Search</button>
         </form>

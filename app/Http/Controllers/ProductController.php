@@ -20,15 +20,17 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $categories = Category::all();
-        $categoryName = $request->input('category', '');
+        $categoryName = $request->input('category', ''); // Retrieve category from the request
         $filteredProducts = Product::when($categoryName, function ($query, $categoryName) {
             return $query->whereHas('category', function ($subquery) use ($categoryName) {
                 $subquery->where('name', $categoryName);
             });
         })
             ->get();
-        return view('products', compact('filteredProducts', 'categories'));
+
+        return view('products.index', compact('filteredProducts', 'categories', 'categoryName'));
     }
+
 
     public function create()
     {
