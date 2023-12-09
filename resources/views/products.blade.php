@@ -6,6 +6,25 @@
     <div class="container">
         <h1>Products</h1>
 
+        <!-- resources/views/products/index.blade.php -->
+
+        <!-- ... -->
+
+        <form action="{{ route('products.index') }}" method="GET">
+            <div class="form-group">
+                <label for="category">Filter by Category:</label>
+                <select name="category" id="category" class="form-control">
+                    <option value="">All Categories</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->name }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <!-- ... -->
+
         <!-- Display a table of products -->
         <table class="table">
             <thead>
@@ -17,13 +36,14 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($products as $product)
+                @foreach ($filteredProducts as $filteredProduct)
                     <tr>
-                        <td>{{ $product->name }}</td>
-                        <td>{{ $product->category->name }}</td>
-                        <td>{{ $product->description }}</td>
+                        <td>{{ $filteredProduct->name }}</td>
+                        <td>{{ $filteredProduct->category->name }}</td>
+                        <td>{{ $filteredProduct->description }}</td>
                         <td>
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="100">
+                            <img src="{{ asset('storage/' . $filteredProduct->image) }}" alt="{{ $filteredProduct->name }}"
+                                width="100">
                         </td>
                     </tr>
                 @endforeach

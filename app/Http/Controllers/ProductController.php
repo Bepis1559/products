@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -16,10 +17,17 @@ class ProductController extends Controller
     // 5. edit($id) - show form to edit a resource
     // 6. update(Request $request, $id) logic for updating a resource in the db
     // 7. destroy($id) - logic for deleting a resource from the db
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
-        return view('products', compact('products'));
+        $categories = Category::all();
+        $categoryName = $request->input('category', '');
+        $filteredProducts = Product::when($categoryName, function ($query, $categoryName) {
+            return $query->whereHas('category', function ($subquery) use ($categoryName) {
+                $subquery->where('name', $categoryName);
+            });
+        })
+            ->get();
+        return view('products', compact('filteredProducts', 'categories'));
     }
 
     public function create()
