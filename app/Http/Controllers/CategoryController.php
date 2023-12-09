@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -16,7 +17,8 @@ class CategoryController extends Controller
     // 7. destroy($id) - logic for deleting a resource from the db
     public function index()
     {
-        // Logic for displaying a list of products
+        $categories = Category::all();
+        return view('categories.index', compact('products'));
     }
 
     public function create()
