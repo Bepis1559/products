@@ -34,23 +34,27 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('products.create');
+        $categories = Category::all();
+        return view('products.create', compact('categories'));
     }
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'productCategory' => 'required|string|max:255',
+            'productCategory' => 'required|exists:categories,id', // Ensure the selected category exists
             'description' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
         $imagePath = $request->file('image')->store('images', 'public');
+
         Product::create([
             'name' => $request->input('name'),
             'productCategory' => $request->input('productCategory'),
             'description' => $request->input('description'),
             'image' => $imagePath,
         ]);
+
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
     public function show($id)

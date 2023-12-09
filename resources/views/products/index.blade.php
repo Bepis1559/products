@@ -4,11 +4,13 @@
 
 @section('content')
     <div class="container">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <h1>Products</h1>
-
-        <!-- resources/views/products/index.blade.php -->
-
-        <!-- ... -->
 
         <form action="{{ route('products.index') }}" method="GET">
             <div class="form-group">
@@ -21,13 +23,9 @@
                         </option>
                     @endforeach
                 </select>
-
-
             </div>
             <button type="submit" class="btn btn-primary">Search</button>
         </form>
-
-        <!-- ... -->
 
         <!-- Display a table of products -->
         <table class="table">
