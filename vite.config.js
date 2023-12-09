@@ -5,7 +5,7 @@ import path from "path";
 export default defineConfig({
     plugins: [
         laravel({
-            input: ["resources/sass/app.scss", "resources/js/app.js"],
+            input: ["resources/scss/app.scss", "resources/js/app.js"],
             refresh: true,
         }),
     ],
@@ -14,4 +14,8 @@ export default defineConfig({
             "~bootstrap": path.resolve(__dirname, "node_modules/bootstrap"),
         },
     },
+
+    // server: {
+    //     hmr: false,
+    // },
 });
