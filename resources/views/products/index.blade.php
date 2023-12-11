@@ -27,16 +27,17 @@
             <button type="submit" class="btn btn-primary">Search</button>
         </form>
 
-        <!-- Display a table of products -->
-        <!-- Display a table of products -->
+
         <table class="table">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Category</th>
-                    <th>Description</th>
-                    <th>Image</th>
-                    <th>Action</th> <!-- New column for delete buttons -->
+                    {{-- <th>Description</th>
+                    <th>Image</th> --}}
+                    <th>View</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,23 +45,41 @@
                     <tr>
                         <td>{{ $filteredProduct->name }}</td>
                         <td>{{ $filteredProduct->category->name }}</td>
-                        <td>{{ $filteredProduct->description }}</td>
-                        <td>
+                        {{-- <td>{{ $filteredProduct->description }}</td> --}}
+                        {{-- <td>
                             <img src="{{ asset('storage/' . $filteredProduct->image) }}" alt="{{ $filteredProduct->name }}"
                                 width="100">
+                        </td> --}}
+                        <td>
+                            <!-- View Button -->
+                            <a href="{{ route('products.show', $filteredProduct->id) }}" class="btn btn-primary">View</a>
+                        </td>
+                        <td>
+                            <!-- Edit Button -->
+                            @if (auth()->check() && $filteredProduct->user_id == auth()->id())
+                                <a href="{{ route('products.edit', $filteredProduct->id) }}"
+                                    class="btn btn-warning">Edit</a>
+                            @else
+                                Not Allowed
+                            @endif
                         </td>
                         <td>
                             <!-- Delete Button -->
-                            <form action="{{ route('products.destroy', $filteredProduct->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
+                            @if (auth()->check() && $filteredProduct->user_id == auth()->id())
+                                <form action="{{ route('products.destroy', $filteredProduct->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            @else
+                                Not Allowed
+                            @endif
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+
 
     </div>
 @endsection

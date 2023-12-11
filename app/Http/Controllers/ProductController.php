@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -42,14 +44,20 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'productCategory' => 'required|exists:categories,id', // Ensure the selected category exists
+            'productCategory' => 'required|exists:categories,id',
             'description' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
+        // Get the authenticated user
+        $user = auth()->user();
+
+        // Store the image
         $imagePath = $request->file('image')->store('images', 'public');
 
-        Product::create([
+        // Create a new product associated with the user
+
+        $product = $user->products()->create([
             'name' => $request->input('name'),
             'productCategory' => $request->input('productCategory'),
             'description' => $request->input('description'),
@@ -58,6 +66,7 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
+
     public function show($id)
     {
         $product = Product::findOrFail($id); // Find the product by ID
@@ -107,6 +116,11 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
+
+        // Ensure that the product belongs to the currently logged-in user
+        if (auth()->user()->id !== $product->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
 
         // Delete the product image from storage
         Storage::disk('public')->delete($product->image);
