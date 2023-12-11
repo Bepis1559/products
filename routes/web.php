@@ -17,31 +17,36 @@ use App\Http\Controllers\ProductController;
 */
 
 
-// products
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-// Display a form for creating a new product
-Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+// auth middleware to protect product routes
+Route::middleware(['auth'])->group(function () {
 
-// Store a new product in the database
-Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+    // products
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    // Display a form for creating a new product
+    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
 
-// Display details of a specific product
-Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+    // Store a new product in the database
+    Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 
-// Display a form for editing a specific product
-Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    // Display details of a specific product
+    Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
-// Update a specific product in the database
-Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
+    // Display a form for editing a specific product
+    Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
 
-// Delete a specific product from the database
-Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+    // Update a specific product in the database
+    Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
 
+    // Delete a specific product from the database
+    Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+});
 
+// built-in auth
+Auth::routes();
+
+// welcome page
 Route::get('/', function () {
     return view('welcome');
 });
-
-Auth::routes();
-
+// home = after logging in 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

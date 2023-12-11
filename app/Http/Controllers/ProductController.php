@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -59,14 +60,60 @@ class ProductController extends Controller
     }
     public function show($id)
     {
+        $product = Product::findOrFail($id); // Find the product by ID
+
+        return view('products.show', compact('product'));
     }
+
     public function edit($id)
     {
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
+
+        return view('products.edit', compact('product', 'categories'));
     }
+
     public function update(Request $request, $id)
     {
+        $product = Product::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'productCategory' => 'required|exists:categories,id',
+            'description' => 'required|string',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Update the product details
+        $product->update([
+            'name' => $request->input('name'),
+            'productCategory' => $request->input('productCategory'),
+            'description' => $request->input('description'),
+        ]);
+
+        // Handle image update if a new image is provided
+        if ($request->hasFile('image')) {
+            // Delete the old image
+            Storage::disk('public')->delete($product->image);
+
+            // Store the new image
+            $imagePath = $request->file('image')->store('images', 'public');
+            $product->update(['image' => $imagePath]);
+        }
+
+        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
     }
+
     public function destroy($id)
     {
+        $product = Product::findOrFail($id);
+
+        // Delete the product image from storage
+        Storage::disk('public')->delete($product->image);
+
+        // Delete the product from the database
+        $product->delete();
+
+        return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
     }
 }

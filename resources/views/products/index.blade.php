@@ -28,6 +28,7 @@
         </form>
 
         <!-- Display a table of products -->
+        <!-- Display a table of products -->
         <table class="table">
             <thead>
                 <tr>
@@ -35,6 +36,7 @@
                     <th>Category</th>
                     <th>Description</th>
                     <th>Image</th>
+                    <th>Action</th> <!-- New column for delete buttons -->
                 </tr>
             </thead>
             <tbody>
@@ -47,9 +49,18 @@
                             <img src="{{ asset('storage/' . $filteredProduct->image) }}" alt="{{ $filteredProduct->name }}"
                                 width="100">
                         </td>
+                        <td>
+                            <!-- Delete Button -->
+                            <form action="{{ route('products.destroy', $filteredProduct->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+
     </div>
 @endsection
