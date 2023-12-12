@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
 
 /*
@@ -40,6 +41,19 @@ Route::middleware(['auth'])->group(function () {
     // Delete a specific product from the database
     Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 });
+
+// routes/web.php
+
+// routes/web.php
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::get('/users/{id}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
+    Route::put('/users/{id}', [AdminController::class, 'updateUser'])->name('admin.users.update');
+    Route::delete('/users/{id}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
+});
+
+
 
 // built-in auth
 Auth::routes();

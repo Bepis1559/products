@@ -27,7 +27,6 @@
             <button type="submit" class="btn btn-primary">Search</button>
         </form>
 
-
         <table class="table">
             <thead>
                 <tr>
@@ -56,7 +55,9 @@
                         </td>
                         <td>
                             <!-- Edit Button -->
-                            @if (auth()->check() && $filteredProduct->user_id == auth()->id())
+                            @if (auth()->check() &&
+                                    (auth()->user()->isAdmin() ||
+                                        $filteredProduct->user_id == auth()->id()))
                                 <a href="{{ route('products.edit', $filteredProduct->id) }}"
                                     class="btn btn-warning">Edit</a>
                             @else
@@ -65,7 +66,9 @@
                         </td>
                         <td>
                             <!-- Delete Button -->
-                            @if (auth()->check() && $filteredProduct->user_id == auth()->id())
+                            @if (auth()->check() &&
+                                    (auth()->user()->isAdmin() ||
+                                        $filteredProduct->user_id == auth()->id()))
                                 <form action="{{ route('products.destroy', $filteredProduct->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -79,7 +82,5 @@
                 @endforeach
             </tbody>
         </table>
-
-
     </div>
 @endsection

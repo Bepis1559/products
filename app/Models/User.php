@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -28,6 +29,10 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    protected $attributes = [
+        'role' => 'user', // Set a default role of 'user'
+    ];
     protected $hidden = [
         'password',
         'remember_token',
@@ -46,5 +51,10 @@ class User extends Authenticatable
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+    public function isAdmin()
+    {
+        // Define your admin logic, for example, check a specific role
+        return $this->role === 'admin';
     }
 }
