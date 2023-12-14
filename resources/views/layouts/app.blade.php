@@ -63,13 +63,14 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end " aria-labelledby="navbarDropdown">
+                                    <a href={{ route('home') }} class="dropdown-item  ">Home</a>
+                                    <a href={{ route('products.index') }} class="dropdown-item ">Products</a>
+                                    <a href={{ route('products.create') }} class="dropdown-item ">Add product</a>
                                     <a class="dropdown-item " href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-                                    <a href={{ route('home') }} class="dropdown-item  ">Home</a>
-                                    <a href={{ route('products.index') }} class="dropdown-item ">Products</a>
 
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
