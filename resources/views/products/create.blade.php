@@ -3,7 +3,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container create-product-container">
         <h1>Create a New Product</h1>
 
         <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
