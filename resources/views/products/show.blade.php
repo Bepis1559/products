@@ -9,6 +9,9 @@
         <div>
             <strong>Category:</strong> {{ $product->category->name }}
         </div>
+        <div>
+            <strong>Price:</strong> {{ $product->price }}
+        </div>
 
         <div>
             <strong>Description:</strong> {{ $product->description }}

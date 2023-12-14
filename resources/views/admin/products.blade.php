@@ -44,33 +44,17 @@
                         <td>{{ $filteredProduct->category->name }}</td>
 
                         <td>
-                            <!-- View Button -->
                             <a href="{{ route('products.show', $filteredProduct->id) }}" class="btn btn-primary">View</a>
                         </td>
                         <td>
-                            <!-- Edit Button -->
-                            @if (auth()->check() &&
-                                    (auth()->user()->isAdmin() ||
-                                        $filteredProduct->user_id == auth()->id()))
-                                <a href="{{ route('products.edit', $filteredProduct->id) }}"
-                                    class="btn btn-warning">Edit</a>
-                            @else
-                                Not Allowed
-                            @endif
+                            <a href="{{ route('products.edit', $filteredProduct->id) }}" class="btn btn-warning">Edit</a>
                         </td>
                         <td>
-                            <!-- Delete Button -->
-                            @if (auth()->check() &&
-                                    (auth()->user()->isAdmin() ||
-                                        $filteredProduct->user_id == auth()->id()))
-                                <form action="{{ route('products.destroy', $filteredProduct->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                            @else
-                                Not Allowed
-                            @endif
+                            <form action="{{ route('products.destroy', $filteredProduct->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

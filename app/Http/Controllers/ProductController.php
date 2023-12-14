@@ -44,6 +44,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
             'productCategory' => 'required|exists:categories,id',
             'description' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -59,6 +60,7 @@ class ProductController extends Controller
 
         $product = $user->products()->create([
             'name' => $request->input('name'),
+            'price' => $request->input('price'),
             'productCategory' => $request->input('productCategory'),
             'description' => $request->input('description'),
             'image' => $imagePath,
@@ -88,6 +90,7 @@ class ProductController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
             'productCategory' => 'required|exists:categories,id',
             'description' => 'required|string',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -96,6 +99,7 @@ class ProductController extends Controller
         // Update the product details
         $product->update([
             'name' => $request->input('name'),
+            'price' => $request->input('price'),
             'productCategory' => $request->input('productCategory'),
             'description' => $request->input('description'),
         ]);

@@ -47,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
 // routes/web.php
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/products', [AdminController::class, 'products'])->name('admin.products');
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
     Route::get('/users/{id}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
     Route::put('/users/{id}', [AdminController::class, 'updateUser'])->name('admin.users.update');

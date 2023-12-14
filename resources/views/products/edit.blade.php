@@ -15,7 +15,11 @@
                 <label for="name">Name:</label>
                 <input type="text" name="name" id="name" class="form-control" value="{{ $product->name }}" required>
             </div>
-
+            <div class="form-group">
+                <label for="price">Product Price ($):</label>
+                <input type="number" name="price" id="price" class="form-control" value="{{ $product->price }}"
+                    required>
+            </div>
             <div class="form-group">
                 <label for="productCategory">Category:</label>
                 <select name="productCategory" id="productCategory" class="form-control" required>

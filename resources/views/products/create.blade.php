@@ -13,7 +13,10 @@
                 <label for="name">Product Name:</label>
                 <input type="text" name="name" id="name" class="form-control" required>
             </div>
-
+            <div class="form-group">
+                <label for="price">Product Price ($):</label>
+                <input type="number" name="price" id="price" class="form-control" required>
+            </div>
             <div class="form-group">
                 <label for="productCategory">Product Category:</label>
                 <select name="productCategory" id="productCategory" class="form-control" required>
@@ -33,6 +36,7 @@
                 <label for="image">Product Image:</label>
                 <input type="file" name="image" id="image" class="form-control" accept="image/*" required>
             </div>
+
 
             <button type="submit" class="btn btn-primary">Create Product</button>
         </form>
