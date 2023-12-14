@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-5">
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
 
-        <h1>Admin - Users</h1>
+        <h1 class="text-center">Users</h1>
 
         <!-- Display a table of users -->
-        <table class="table">
+        <table class="table mt-5">
             <thead>
                 <tr>
                     <th>Name</th>

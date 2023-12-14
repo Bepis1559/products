@@ -21,8 +21,7 @@
             </div>
         </header>
         {{-- filtering --}}
-        <form
-            class="productsFilterForm form-group w-50 m-auto p-2 d-flex align-items-center justify-content-center flex-wrap gap-3"
+        <form class=" form-group w-50 m-auto p-2 d-flex align-items-center justify-content-center flex-wrap gap-3"
             action="{{ route('products.index') }}" method="GET">
 
             <select aria-label="Filter by Category" name="category" id="category"

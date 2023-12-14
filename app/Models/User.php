@@ -31,7 +31,7 @@ class User extends Authenticatable
      */
 
     protected $attributes = [
-        'role' => 'user', // Set a default role of 'user'
+        'role' => 'user',
     ];
     protected $hidden = [
         'password',
@@ -54,7 +54,7 @@ class User extends Authenticatable
     }
     public function isAdmin()
     {
-        // Define your admin logic, for example, check a specific role
+
         return $this->role === 'admin';
     }
 }

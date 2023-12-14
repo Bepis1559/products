@@ -66,12 +66,15 @@
                                     <a href={{ route('home') }} class="dropdown-item  ">Home</a>
                                     <a href={{ route('products.index') }} class="dropdown-item ">Products</a>
                                     <a href={{ route('products.create') }} class="dropdown-item ">Add product</a>
+                                    @if (auth()->user()->isAdmin())
+                                        <a href="{{ route('admin.products') }}" class="dropdown-item">Products--Admin</a>
+                                        <a href="{{ route('admin.users') }}" class="dropdown-item">Users</a>
+                                    @endif
                                     <a class="dropdown-item " href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf

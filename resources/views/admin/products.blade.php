@@ -10,20 +10,21 @@
             </div>
         @endif
 
-        <h1>Products</h1>
+        <h1 class="mt-5 text-center">Products</h1>
 
-        <form action="{{ route('products.index') }}" method="GET">
-            <div class="form-group">
-                <label for="category">Filter by Category:</label>
-                <select name="category" id="category" class="form-control">
-                    <option value="">All Categories</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->name }}" {{ $categoryName == $category->name ? 'selected' : '' }}>
-                            {{ $category->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
+        <form action="{{ route('products.index') }}" method="GET"
+            class="form-group w-50 m-auto p-2 d-flex align-items-center justify-content-center flex-wrap gap-3">
+
+            <select aria-label="Filter by Category" name="category" id="category"
+                class="form-control d-inline w-50 text-center mt-5 mb-5">
+                <option value="">All Categories</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->name }}" {{ $categoryName == $category->name ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+
             <button type="submit" class="btn btn-primary">Search</button>
         </form>
 
