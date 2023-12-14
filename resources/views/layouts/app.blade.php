@@ -69,6 +69,7 @@
                                     @if (auth()->user()->isAdmin())
                                         <a href="{{ route('admin.products') }}" class="dropdown-item">Products--Admin</a>
                                         <a href="{{ route('admin.users') }}" class="dropdown-item">Users</a>
+                                        <a href="{{ route('admin.users.create') }}" class="dropdown-item">Add user</a>
                                     @endif
                                     <a class="dropdown-item " href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
