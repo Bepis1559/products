@@ -3,23 +3,37 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h1>{{ $product->name }}</h1>
+    <section>
+        <div class="container px-4 px-lg-5 my-4">
+            <div class="row gx-4 gx-lg-5 align-items-center">
+                <div class="col-md-6">
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                        class="card-img-top mb-5 mb-md-0">
 
-        <div>
-            <strong>Category:</strong> {{ $product->category->name }}
-        </div>
-        <div>
-            <strong>Price:</strong> {{ $product->price }}
-        </div>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="mb-3"><strong>Created by:</strong> {{ $userName }}</h3>
+                    <h3 class="mb-3"> <strong>Category:</strong> {{ $product->category->name }}</h3>
+                    <h3 class=" mb-3">
+                        <strong>Price:</strong> ${{ $product->price }}
+                    </h3>
 
-        <div>
-            <strong>Description:</strong> {{ $product->description }}
-        </div>
+                    <div class="mb-3">
+                        <h3 cla> <strong>Description:</strong></h3>
+                        <p class=" fs-4">{{ $product->description }}</p>
 
-        <div>
-            <strong>Image:</strong>
-            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="300">
+                    </div>
+                    @if (auth()->check() && auth()->user()->id === $product->user_id)
+                        <!-- Display delete button for the user who created the product -->
+                        <form action="{{ route('products.destroy', $product->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete Product</button>
+                        </form>
+                    @endif
+
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 @endsection

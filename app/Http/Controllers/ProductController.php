@@ -72,8 +72,8 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id); // Find the product by ID
-
-        return view('products.show', compact('product'));
+        $userName = User::findOrFail($product->user_id)->name;
+        return view('products.show', compact('product', 'userName'));
     }
 
     public function edit($id)
