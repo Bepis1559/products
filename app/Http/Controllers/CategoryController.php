@@ -28,7 +28,7 @@ class CategoryController extends Controller
             'name' => $request->input('name'),
         ]);
 
-        return redirect()->route('categories.index')->with('success', 'Category created successfully.');
+        return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
     }
 
     public function show($id)
