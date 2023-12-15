@@ -18,7 +18,7 @@ class CheckProductOwnership
      */
     public function handle(Request $request, Closure $next): Response
     {
-
+        // DDD($request);
         $productId = $request->route('id');
 
         $product = Product::findOrFail($productId);

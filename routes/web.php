@@ -1,12 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdminProductsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // Admin User Routes
-    Route::get('/users', [UserController::class, 'users'])->name('admin.users');
+    Route::get('/users', [UserController::class, 'users'])->name('admin.users.index');
     Route::get('/users/{id}/edit', [UserController::class, 'editUser'])->name('admin.users.edit');
     Route::get('/users/create', [UserController::class, 'createUser'])->name('admin.users.create');
     Route::put('/users/{id}', [UserController::class, 'updateUser'])->name('admin.users.update');
@@ -46,7 +46,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::delete('/users/{id}', [UserController::class, 'destroyUser'])->name('admin.users.destroy');
 
     // Admin Product Routes
-    Route::get('/products', [AdminController::class, 'products'])->name('admin.products');
+    Route::get('/products', [AdminProductsController::class, 'index'])->name('admin.products.index');
 
     // Admin Category Routes
     Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories.index');

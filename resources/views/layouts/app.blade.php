@@ -67,8 +67,9 @@
                                     <a href={{ route('products.index') }} class="dropdown-item ">Products</a>
                                     <a href={{ route('products.create') }} class="dropdown-item ">Add product</a>
                                     @if (auth()->user()->isAdmin())
-                                        <a href="{{ route('admin.products') }}" class="dropdown-item">Products--Admin</a>
-                                        <a href="{{ route('admin.users') }}" class="dropdown-item">Users</a>
+                                        <a href="{{ route('admin.products.index') }}"
+                                            class="dropdown-item">Products--Admin</a>
+                                        <a href="{{ route('admin.users.index') }}" class="dropdown-item">Users</a>
                                         <a href="{{ route('admin.users.create') }}" class="dropdown-item">Add user</a>
 
                                         <!-- Category Links -->

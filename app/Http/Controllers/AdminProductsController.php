@@ -6,11 +6,11 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class AdminProductsController extends Controller
 {
 
     // products
-    public function products(Request $request)
+    public function index(Request $request)
     {
         $categories = Category::all();
         $categoryName = $request->input('category', ''); // Retrieve category from the request
@@ -21,6 +21,6 @@ class AdminController extends Controller
         })
             ->get();
 
-        return view('admin.products', compact('filteredProducts', 'categories', 'categoryName'));
+        return view('admin.products.index', compact('filteredProducts', 'categories', 'categoryName'));
     }
 }
