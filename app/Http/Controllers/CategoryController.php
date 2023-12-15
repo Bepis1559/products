@@ -7,36 +7,59 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    // method conventions
-    // 1. index - show a list of resources
-    // 2. create - show form to create a new resource
-    // 3. store(Request $request) - storing a new resource in the db
-    // 4. show($id) - show a specific resource
-    // 5. edit($id) - show form to edit a resource
-    // 6. update(Request $request, $id) logic for updating a resource in the db
-    // 7. destroy($id) - logic for deleting a resource from the db
     public function index()
     {
         $categories = Category::all();
-        return view('categories.index', compact('products'));
+        return view('admin.categories.index', compact('categories'));
     }
 
     public function create()
     {
+        return view('admin.categories.create');
     }
+
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories',
+        ]);
+
+        Category::create([
+            'name' => $request->input('name'),
+        ]);
+
+        return redirect()->route('categories.index')->with('success', 'Category created successfully.');
     }
+
     public function show($id)
     {
+        $category = Category::findOrFail($id);
+        return view('admin.categories.show', compact('category'));
     }
+
     public function edit($id)
     {
+        $category = Category::findOrFail($id);
+        return view('admin.categories.edit', compact('category'));
     }
+
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name,' . $id,
+        ]);
+
+        $category = Category::findOrFail($id);
+        $category->update([
+            'name' => $request->input('name'),
+        ]);
+
+        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
     }
+
     public function destroy($id)
     {
+        Category::findOrFail($id)->delete();
+        return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully.');
     }
 }
