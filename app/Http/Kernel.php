@@ -47,6 +47,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
         'admin' => [AdminMiddleware::class],
+        'checkProductOwnership' => [\App\Http\Middleware\CheckProductOwnership::class],
     ];
 
     /**
