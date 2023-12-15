@@ -20,7 +20,9 @@
                         <h3 cla> <strong>Description:</strong></h3>
                         <p class=" fs-4">{{ $product->description }}</p>
                     </div>
-                    @if (auth()->check() && auth()->user()->id === $product->user_id)
+                    @if (auth()->check() &&
+                            (auth()->user()->id === $product->user_id ||
+                                auth()->user()->isAdmin()))
                         <!-- Display edit and delete buttons for the user who created the product -->
                         <form action="{{ route('products.destroy', $product->id) }}" method="POST">
                             @csrf

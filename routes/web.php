@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
     Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+
     Route::middleware('checkProductOwnership')->group(function () {
         Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
         Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
@@ -36,12 +38,12 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // Admin User Routes
-    Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
-    Route::get('/users/{id}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
-    Route::get('/users/create', [AdminController::class, 'createUser'])->name('admin.users.create');
-    Route::put('/users/{id}', [AdminController::class, 'updateUser'])->name('admin.users.update');
-    Route::post('/users', [AdminController::class, 'storeUser'])->name('admin.users.store');
-    Route::delete('/users/{id}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
+    Route::get('/users', [UserController::class, 'users'])->name('admin.users');
+    Route::get('/users/{id}/edit', [UserController::class, 'editUser'])->name('admin.users.edit');
+    Route::get('/users/create', [UserController::class, 'createUser'])->name('admin.users.create');
+    Route::put('/users/{id}', [UserController::class, 'updateUser'])->name('admin.users.update');
+    Route::post('/users', [UserController::class, 'storeUser'])->name('admin.users.store');
+    Route::delete('/users/{id}', [UserController::class, 'destroyUser'])->name('admin.users.destroy');
 
     // Admin Product Routes
     Route::get('/products', [AdminController::class, 'products'])->name('admin.products');

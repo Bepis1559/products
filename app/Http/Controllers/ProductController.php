@@ -121,10 +121,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        // Ensure that the product belongs to the currently logged-in user
-        if (auth()->user()->id !== $product->user_id) {
-            abort(403, 'Unauthorized action.');
-        }
+
 
         // Delete the product image from storage
         Storage::disk('public')->delete($product->image);

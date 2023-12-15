@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\CheckProductOwnership;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -47,7 +48,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
         'admin' => [AdminMiddleware::class],
-        'checkProductOwnership' => [\App\Http\Middleware\CheckProductOwnership::class],
+        'checkProductOwnership' => [CheckProductOwnership::class],
     ];
 
     /**
