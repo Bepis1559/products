@@ -38,12 +38,12 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // Admin User Routes
-    Route::get('/users', [UserController::class, 'users'])->name('admin.users.index');
-    Route::get('/users/{id}/edit', [UserController::class, 'editUser'])->name('admin.users.edit');
-    Route::get('/users/create', [UserController::class, 'createUser'])->name('admin.users.create');
-    Route::put('/users/{id}', [UserController::class, 'updateUser'])->name('admin.users.update');
-    Route::post('/users', [UserController::class, 'storeUser'])->name('admin.users.store');
-    Route::delete('/users/{id}', [UserController::class, 'destroyUser'])->name('admin.users.destroy');
+    Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
+    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+    Route::get('/users/create', [UserController::class, 'create'])->name('admin.users.create');
+    Route::put('/users/{id}', [UserController::class, 'update'])->name('admin.users.update');
+    Route::post('/users', [UserController::class, 'store'])->name('admin.users.store');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 
     // Admin Product Routes
     Route::get('/products', [AdminProductsController::class, 'index'])->name('admin.products.index');

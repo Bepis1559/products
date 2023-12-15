@@ -7,21 +7,21 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function users()
+    public function index()
     {
         // Retrieve all users
         $users = User::all();
         return view('admin.users.index', compact('users'));
     }
 
-    public function editUser($id)
+    public function edit($id)
     {
         // Retrieve the user by ID
         $user = User::findOrFail($id);
         return view('admin.users.edit', compact('user'));
     }
 
-    public function updateUser(Request $request, $id)
+    public function update(Request $request, $id)
     {
         // Validate the request
         $request->validate([
@@ -39,7 +39,7 @@ class UserController extends Controller
         return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
     }
 
-    public function destroyUser($id)
+    public function destroy($id)
     {
         // Delete the user
         User::findOrFail($id)->delete();
@@ -47,11 +47,11 @@ class UserController extends Controller
         return redirect()->route('admin.users.index')->with('success', 'User deleted successfully.');
     }
 
-    public function createUser()
+    public function create()
     {
         return view('admin.users.create');
     }
-    public function storeUser(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
