@@ -14,6 +14,29 @@ class UserController extends Controller
         return view('admin.users.index', compact('users'));
     }
 
+    public function create()
+    {
+        return view('admin.users.create');
+    }
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
+            'role' => 'required|in:user,admin',
+        ]);
+
+        User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+            'role' => $request->input('role'),
+        ]);
+
+        return redirect()->route('admin.users.index')->with('success', 'User created successfully.');
+    }
+
     public function edit($id)
     {
         // Retrieve the user by ID
@@ -45,28 +68,5 @@ class UserController extends Controller
         User::findOrFail($id)->delete();
 
         return redirect()->route('admin.users.index')->with('success', 'User deleted successfully.');
-    }
-
-    public function create()
-    {
-        return view('admin.users.create');
-    }
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8',
-            'role' => 'required|in:user,admin',
-        ]);
-
-        User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-            'role' => $request->input('role'),
-        ]);
-
-        return redirect()->route('admin.users.index')->with('success', 'User created successfully.');
     }
 }
